@@ -9,6 +9,7 @@ const theme = extendTheme({
     heading: "Inter",
     body: "Inter",
   },
+  
 })
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
