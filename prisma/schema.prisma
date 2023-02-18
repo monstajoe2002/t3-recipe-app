@@ -25,6 +25,13 @@ model Recipe {
   authorId    String   @db.ObjectId
 }
 
+model Example {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  email       String @unique
+  name        String
+  description String
+}
+
 // Necessary for Next auth
 model Account {
   id                String  @id @default(auto()) @map("_id") @db.ObjectId
