@@ -16,10 +16,11 @@ datasource db {
 
 model Recipe {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
+  title       String
   description String
   thumbnail   String
   yield       String
+  ingredients String[]
   tags        String[]
   author      User     @relation(fields: [authorId], references: [id])
   authorId    String   @db.ObjectId

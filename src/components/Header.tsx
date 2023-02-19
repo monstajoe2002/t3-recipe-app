@@ -2,6 +2,7 @@ import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
+  ButtonGroup,
   Flex,
   Heading,
   IconButton,
@@ -18,18 +19,17 @@ export default function Header() {
           <Heading size={"lg"} fontWeight={"normal"}>
             Recipe App
           </Heading>
-          <Flex ml={"auto"} fontWeight={"bold"}>
-            <IconButton
-              mr={4}
-              aria-label="Toggle Theme"
-              onClick={toggleColorMode}
-              icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-            />
-            <Button colorScheme={"orange"}>Login</Button>
-            <Button colorScheme={"orange"} ml={2} variant={"ghost"}>
-              Sign Up
-            </Button>
-          </Flex>
+            <ButtonGroup ml={'auto'} spacing="3">
+              <IconButton
+                aria-label="Toggle Theme"
+                onClick={toggleColorMode}
+                icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+              />
+              <Button colorScheme={"orange"}>Log In</Button>
+              <Button colorScheme={"orange"} variant={"outline"}>
+                Sign Up
+              </Button>
+            </ButtonGroup>
         </Flex>
       </Box>
     </>
