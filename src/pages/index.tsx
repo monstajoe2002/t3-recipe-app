@@ -2,31 +2,11 @@ import { Divider, Grid, Heading } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import RecipeCard from "../components/RecipeCard";
+import { api } from "../utils/api";
 import Layout from "../layouts/layout";
-import axios from "axios";
 
-export async function getServerSideProps() {
-  const headersList = {
-    Accept: "*/*",
-    "User-Agent": "Thunder Client (https://www.thunderclient.com)",
-    "X-RapidAPI-Key": "43f274a3e9mshffa5eaeb7bfffd2p14bff5jsnf825be0f2e08",
-    "X-RapidAPI-Host": "tasty.p.rapidapi.com",
-  };
-
-  const reqOptions = {
-    url: "https://tasty.p.rapidapi.com/recipes/list?from=0&size=10",
-    method: "GET",
-    headers: headersList,
-  };
-
-  const { data } = (await axios.request(reqOptions)) as any;
-  return {
-    props: {
-      data,
-    },
-  };
-}
-const Home: NextPage = ({ data }: { data: any }) => {
+const Home: NextPage = () => {
+  const recipes = api.recipes.getAllRecipes;
   return (
     <>
       <Head>
@@ -47,15 +27,18 @@ const Home: NextPage = ({ data }: { data: any }) => {
           }}
           gap={4}
         >
-          {data.results.map((recipe: any) => (
-            <RecipeCard
-              key={recipe.id}
-              title={recipe.name}
-              description={recipe.description}
-              image={recipe.thumbnail_url}
-              author={recipe.credits[0].name}
-            />
-          ))}
+          {recipes
+            .useQuery()
+            .data?.map(({ id, title, thumbnail, description, ingredients }) => (
+              <RecipeCard
+                key={id}
+                title={title}
+                image={thumbnail}
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                ingredients={ingredients}
+                description={description}
+              />
+            ))}
         </Grid>
       </Layout>
     </>

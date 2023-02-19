@@ -14,9 +14,9 @@ import NextLink from "next/link";
 type Props = {
   title: string;
   description: string;
-  image: string;
-  ingredients?: string[];
-  author: string;
+  image?: string;
+  ingredients: string[];
+  author?: string;
 };
 
 export default function RecipeCard({
@@ -39,18 +39,18 @@ export default function RecipeCard({
         />
         <Stack mt="6" spacing="3">
           <Heading size="md">{title}</Heading>
-                  <Text>{description}</Text>
-                  {/* <Text color="gray.500" fontSize="sm">
-                      {ingredients.length} Ingredients
-                    </Text> */}
+          <Text>{description}</Text>
+          <Text color="gray.500" fontSize="sm">
+            Ingredients: {ingredients}
+          </Text>
           <Text color="orange.600" fontSize="2xl">
-            By: {author}
+            {/* By: {author} */}
           </Text>
         </Stack>
       </CardBody>
       <Divider />
       <CardFooter>
-        <Button as={NextLink} href={'/'} colorScheme="orange" variant="solid">
+        <Button as={NextLink} href={"/"} colorScheme="orange" variant="solid">
           View More
         </Button>
       </CardFooter>
