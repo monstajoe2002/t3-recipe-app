@@ -8,8 +8,8 @@ const theme = extendTheme({
   fonts: {
     heading: "Playfair Display",
     body: "Playfair Display",
-  }
-})
+  },
+});
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
