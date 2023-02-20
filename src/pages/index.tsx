@@ -34,7 +34,6 @@ const Home: NextPage = () => {
                 key={id}
                 title={title}
                 image={thumbnail}
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                 ingredients={ingredients}
                 description={description}
               />
