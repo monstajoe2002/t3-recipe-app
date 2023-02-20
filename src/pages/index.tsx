@@ -36,6 +36,7 @@ const Home: NextPage = () => {
                 "https://via.placeholder.com/300/ffc22b?text=Placeholder+Image"
               }
               description={description}
+              id={id}
             />
           ))}
       </Grid>

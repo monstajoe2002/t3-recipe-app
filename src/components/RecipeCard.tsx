@@ -12,12 +12,14 @@ import {
 import React from "react";
 import NextLink from "next/link";
 type Props = {
+  id: string;
   title: string;
   description: string;
   image: string;
 };
 
 export default function RecipeCard({
+  id,
   title,
   description,
   image,
@@ -44,7 +46,7 @@ export default function RecipeCard({
       </CardBody>
       <Divider />
       <CardFooter>
-        <Button as={NextLink} href={"/"} colorScheme="orange" variant="solid">
+        <Button as={NextLink} href={`/recipes/${id}`} colorScheme="orange" variant="solid">
           View Recipe
         </Button>
       </CardFooter>
