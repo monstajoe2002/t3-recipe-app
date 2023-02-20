@@ -8,25 +8,19 @@ import {
   Divider,
   Heading,
   Stack,
-  UnorderedList,
-  ListItem,
 } from "@chakra-ui/react";
 import React from "react";
 import NextLink from "next/link";
 type Props = {
   title: string;
   description: string;
-  image?: string;
-  ingredients: string[];
-  author?: string;
+  image: string;
 };
 
 export default function RecipeCard({
   title,
   description,
   image,
-  ingredients,
-  author,
 }: Props) {
   return (
     <Card w="sm">
@@ -42,14 +36,7 @@ export default function RecipeCard({
         <Stack mt="6" spacing="3">
           <Heading size="md">{title}</Heading>
           <Text>{description}</Text>
-          <Text color="gray.500" fontSize="sm">
-            Ingredients:
-            <UnorderedList>
-              {ingredients.map((ingredient, idx) => (
-                <ListItem key={idx}>{ingredient}</ListItem>
-              ))}
-            </UnorderedList>
-          </Text>
+          
           <Text color="orange.600" fontSize="2xl">
             {/* By: {author} */}
           </Text>
@@ -58,7 +45,7 @@ export default function RecipeCard({
       <Divider />
       <CardFooter>
         <Button as={NextLink} href={"/"} colorScheme="orange" variant="solid">
-          View More
+          View Recipe
         </Button>
       </CardFooter>
     </Card>
