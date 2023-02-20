@@ -15,15 +15,16 @@ datasource db {
 }
 
 model Recipe {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  title       String
-  description String
-  thumbnail   String
-  yield       String
-  ingredients String[]
-  tags        String[]
-  author      User     @relation(fields: [authorId], references: [id])
-  authorId    String   @db.ObjectId
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  title        String
+  description  String
+  thumbnail    String
+  yield        String
+  ingredients  String[]
+  instructions String
+  tags         String[]
+  author       User     @relation(fields: [authorId], references: [id])
+  authorId     String   @db.ObjectId
 }
 
 // Necessary for Next auth

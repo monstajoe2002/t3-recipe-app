@@ -10,9 +10,12 @@ export const recipeRouter = createTRPCRouter({
     });
   }),
   getbyUserId: publicProcedure.input(z.string()).query(({ ctx, input }) => {
-    return ctx.prisma.recipe.findMany({
+    return ctx.prisma.user.findFirst({
       where: {
         id: input,
+      },
+      include: {
+        recipes: true,
       },
     });
   }),
