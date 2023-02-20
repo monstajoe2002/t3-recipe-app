@@ -8,6 +8,8 @@ import {
   Divider,
   Heading,
   Stack,
+  UnorderedList,
+  ListItem,
 } from "@chakra-ui/react";
 import React from "react";
 import NextLink from "next/link";
@@ -41,7 +43,12 @@ export default function RecipeCard({
           <Heading size="md">{title}</Heading>
           <Text>{description}</Text>
           <Text color="gray.500" fontSize="sm">
-            Ingredients: {ingredients}
+            Ingredients:
+            <UnorderedList>
+              {ingredients.map((ingredient, idx) => (
+                <ListItem key={idx}>{ingredient}</ListItem>
+              ))}
+            </UnorderedList>
           </Text>
           <Text color="orange.600" fontSize="2xl">
             {/* By: {author} */}
