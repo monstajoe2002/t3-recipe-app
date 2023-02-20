@@ -4,6 +4,7 @@ import { SessionProvider } from "next-auth/react";
 import { api } from "../utils/api";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import "@fontsource/playfair-display";
+import Layout from "../layouts/layout";
 const theme = extendTheme({
   fonts: {
     heading: "Playfair Display",
@@ -17,7 +18,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <SessionProvider session={session}>
       <ChakraProvider theme={theme}>
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </ChakraProvider>
     </SessionProvider>
   );
