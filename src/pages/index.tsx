@@ -28,12 +28,12 @@ const Home: NextPage = () => {
       >
         {recipes
           .useQuery()
-          .data?.map(({ id, title, thumbnail, description }) => (
+          .data?.map(({ id, title, description }) => (
             <RecipeCard
               key={id}
               title={title}
               image={
-                "https://via.placeholder.com/300/ff722b?text=Placeholder+Image"
+                "https://via.placeholder.com/300/ffc22b?text=Placeholder+Image"
               }
               description={description}
             />
