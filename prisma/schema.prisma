@@ -23,7 +23,7 @@ model Recipe {
   ingredients  String[]
   instructions String
   tags         String[]
-  author       User     @relation(fields: [authorId], references: [id])
+  author       User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId     String   @db.ObjectId
 }
 
