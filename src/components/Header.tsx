@@ -1,4 +1,5 @@
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import NextLink from "next/link";
 import {
   Box,
   Button,
@@ -16,7 +17,7 @@ export default function Header() {
     <>
       <Box borderWidth="1px" borderRadius="lg" overflow="hidden" p={2}>
         <Flex>
-          <Heading size={"lg"} fontWeight={"normal"}>
+          <Heading as={NextLink} href={'/'} size={"lg"} fontWeight={"normal"}>
             Recipe App
           </Heading>
             <ButtonGroup ml={'auto'} spacing="3">

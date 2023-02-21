@@ -27,7 +27,7 @@ const Home: NextPage = () => {
               key={id}
               title={title}
               image={
-                "https://via.placeholder.com/300/ffc22b?text=Placeholder+Image"
+                "https://via.placeholder.com/300/ffc22b?text=Placeholder+Thumbnail"
               }
               description={description}
               id={id}
