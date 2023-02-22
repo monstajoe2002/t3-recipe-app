@@ -15,7 +15,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function Header() {
   const { colorMode, toggleColorMode } = useColorMode();
-  const {data:session}=useSession();
+  const { data: session } = useSession();
   return (
     <>
       <Box borderWidth="1px" borderRadius="lg" overflow="hidden" p={2}>
