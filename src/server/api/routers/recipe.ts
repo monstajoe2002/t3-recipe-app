@@ -22,4 +22,31 @@ export const recipeRouter = createTRPCRouter({
   getAllRecipes: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.recipe.findMany();
   }),
+  createRecipe: publicProcedure
+    .input(
+      z.object({
+        title: z.string(),
+        description: z.string(),
+        servings: z.number(),
+        ingredients: z.array(z.string()),
+        instructions: z.array(z.string()),
+        authorId: z.string(),
+      })
+    )
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.recipe.create({
+        data: {
+          title: input.title,
+          description: input.description,
+          servings: input.servings,
+          ingredients: input.ingredients,
+          instructions: input.instructions,
+          author: {
+            connect: {
+              id: input.authorId,
+            },
+          },
+        },
+      });
+    }),
 });

@@ -28,7 +28,7 @@ const Home: NextPage = () => {
             }
             description={description}
             id={id}
-            servings={servings as number}
+            servings={servings}
           />
         ))}
       </Grid>
