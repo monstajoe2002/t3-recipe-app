@@ -16,9 +16,10 @@ type Props = {
   title: string;
   description: string;
   image: string;
+  servings: number;
 };
 
-export default function RecipeCard({ id, title, description, image }: Props) {
+export default function RecipeCard({ id, title, description, image,servings }: Props) {
   return (
     <Card w="sm">
       <CardBody>
@@ -33,7 +34,9 @@ export default function RecipeCard({ id, title, description, image }: Props) {
         <Stack mt="6" spacing="3">
           <Heading size="md">{title}</Heading>
           <Text>{description}</Text>
-          <Text color="orange.600" fontSize="2xl"></Text>
+          <Text color="orange.600" fontSize="2xl">
+            Servings: {servings}
+          </Text>
         </Stack>
       </CardBody>
       <Divider />

@@ -18,8 +18,8 @@ model Recipe {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   title        String
   description  String
-  thumbnail    String
-  yield        String
+  thumbnail    String?
+  servings     Int
   ingredients  String[]
   instructions String[]
   tags         String[]

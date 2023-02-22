@@ -19,8 +19,7 @@ export const recipeRouter = createTRPCRouter({
       },
     });
   }),
-    getAllRecipes: publicProcedure.query(({ ctx }) => {
-        return ctx.prisma.recipe.findMany();
-    }),
-  
+  getAllRecipes: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.recipe.findMany();
+  }),
 });

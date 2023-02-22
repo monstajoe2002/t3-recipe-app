@@ -19,7 +19,7 @@ const Home: NextPage = () => {
         }}
         gap={4}
       >
-        {recipes.useQuery().data?.map(({ id, title, description }) => (
+        {recipes.useQuery().data?.map(({ id, title, description,servings }) => (
           <RecipeCard
             key={id}
             title={title}
@@ -28,6 +28,7 @@ const Home: NextPage = () => {
             }
             description={description}
             id={id}
+            servings={servings as number}
           />
         ))}
       </Grid>

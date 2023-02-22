@@ -25,7 +25,10 @@ export default function Recipe() {
       />
       <Heading my={"8"}>{recipe?.title}</Heading>
       <Text fontSize={"2xl"}>{recipe?.description}</Text>
-      <Text mt="4" textColor={'gray'} fontWeight={'bold'} fontSize={"xl"}>
+      <Text mt="4" textColor={'orange'} fontWeight={'bold'} fontSize={"xl"}>
+        {recipe?.servings} servings
+      </Text>
+      <Text mt="4" textColor={'gray'} fontWeight={'bold'} fontSize={"lg"}>
         Tags: {recipe?.tags.map((tag) => tag).join(", ")}
       </Text>
       <Heading as={"h2"} size={"lg"} my={"8"}>
