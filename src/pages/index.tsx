@@ -7,7 +7,6 @@ const Home: NextPage = () => {
   const recipes = api.recipes.getAllRecipes;
   return (
     <>
-
       <Heading my={"8"}>Your Recipes</Heading>
       <Divider mt={"8"} />
       <Heading my={"8"}>Community Recipes</Heading>
@@ -20,19 +19,17 @@ const Home: NextPage = () => {
         }}
         gap={4}
       >
-        {recipes
-          .useQuery()
-          .data?.map(({ id, title, description }) => (
-            <RecipeCard
-              key={id}
-              title={title}
-              image={
-                "https://via.placeholder.com/300/ffc22b?text=Placeholder+Thumbnail"
-              }
-              description={description}
-              id={id}
-            />
-          ))}
+        {recipes.useQuery().data?.map(({ id, title, description }) => (
+          <RecipeCard
+            key={id}
+            title={title}
+            image={
+              "https://via.placeholder.com/300/ffc22b?text=Placeholder+Thumbnail"
+            }
+            description={description}
+            id={id}
+          />
+        ))}
       </Grid>
     </>
   );

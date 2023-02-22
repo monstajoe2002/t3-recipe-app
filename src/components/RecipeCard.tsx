@@ -18,12 +18,7 @@ type Props = {
   image: string;
 };
 
-export default function RecipeCard({
-  id,
-  title,
-  description,
-  image,
-}: Props) {
+export default function RecipeCard({ id, title, description, image }: Props) {
   return (
     <Card w="sm">
       <CardBody>
@@ -38,15 +33,17 @@ export default function RecipeCard({
         <Stack mt="6" spacing="3">
           <Heading size="md">{title}</Heading>
           <Text>{description}</Text>
-          
-          <Text color="orange.600" fontSize="2xl">
-            {/* By: {author} */}
-          </Text>
+          <Text color="orange.600" fontSize="2xl"></Text>
         </Stack>
       </CardBody>
       <Divider />
       <CardFooter>
-        <Button as={NextLink} href={`/recipes/${id}`} colorScheme="orange" variant="solid">
+        <Button
+          as={NextLink}
+          href={`/recipes/${id}`}
+          colorScheme="orange"
+          variant="solid"
+        >
           View Recipe
         </Button>
       </CardFooter>
