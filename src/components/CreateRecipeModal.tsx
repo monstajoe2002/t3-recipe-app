@@ -36,6 +36,7 @@ export default function CreateRecipeModal({ isOpen, onClose }: Props) {
   const [error, setError] = useState(false);
   const { data: session } = useSession();
   const authorId = session?.user.id as string;
+  const { mutate } = api.recipes.createRecipe.useMutation();
 
   const handleCreateRecipe = (e: React.SyntheticEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -51,7 +52,7 @@ export default function CreateRecipeModal({ isOpen, onClose }: Props) {
       return;
     }
     setError(false);
-    api.recipes.createRecipe.useMutation().mutate({
+    mutate({
       title,
       description,
       servings,
@@ -60,15 +61,7 @@ export default function CreateRecipeModal({ isOpen, onClose }: Props) {
       tags,
       authorId,
     });
-    console.dir({
-      title,
-      description,
-      servings,
-      ingredients,
-      instructions,
-      tags,
-      authorId,
-    });
+    onClose();
   };
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
