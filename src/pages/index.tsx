@@ -8,6 +8,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
+import type { Recipe } from "@prisma/client";
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import CreateRecipeModal from "../components/CreateRecipeModal";
@@ -18,7 +19,7 @@ const Home: NextPage = () => {
   const recipes = api.recipes.getAllRecipes;
   const { onOpen, isOpen, onClose } = useDisclosure();
   const { data: session } = useSession();
-
+  const isUserRecipe = (recipe: Recipe) => recipe.authorId === session?.user.id;
   return (
     <>
       <Flex justifyContent={"space-between"}>
@@ -31,6 +32,31 @@ const Home: NextPage = () => {
           visibility={session ? "visible" : "hidden"}
         />
       </Flex>
+      <Grid
+        justifyItems={"center"}
+        templateColumns={{
+          sm: "repeat(1,1fr)",
+          md: "repeat(2,1fr)",
+          lg: "repeat(3,1fr)",
+        }}
+        gap={4}
+      >
+        {recipes
+          ?.useQuery()
+          .data?.filter((recipe) => isUserRecipe(recipe))
+          .map(({ id, title, description, servings }) => (
+            <RecipeCard
+              key={id}
+              title={title}
+              image={
+                "https://via.placeholder.com/300/ffc22b?text=Placeholder+Thumbnail"
+              }
+              description={description}
+              id={id}
+              servings={servings}
+            />
+          ))}
+      </Grid>
       <Flex>
         <Text
           mx={"auto"}
@@ -38,6 +64,7 @@ const Home: NextPage = () => {
           textAlign={"center"}
           fontWeight={"bold"}
           color={"gray"}
+          visibility={!recipes ? "visible" : "hidden"}
         >
           {!session
             ? "You must be logged into view your recipes."
@@ -59,7 +86,8 @@ const Home: NextPage = () => {
       >
         {recipes
           .useQuery()
-          .data?.map(({ id, title, description, servings }) => (
+          .data?.filter((recipe) => !isUserRecipe(recipe))
+          .map(({ id, title, description, servings }) => (
             <RecipeCard
               key={id}
               title={title}
