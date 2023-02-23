@@ -8,18 +8,49 @@ import {
   Divider,
   Heading,
   Stack,
+  useToast,
+  IconButton,
+  useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
 import NextLink from "next/link";
+import { api } from "../utils/api";
+import { DeleteIcon } from "@chakra-ui/icons";
+import { useSession } from "next-auth/react";
+import DeleteRecipeModal from "./DeleteRecipeModal";
 type Props = {
   id: string;
   title: string;
   description: string;
   image: string;
   servings: number;
+  authorId: string;
 };
 
-export default function RecipeCard({ id, title, description, image,servings }: Props) {
+export default function RecipeCard({
+  id,
+  title,
+  description,
+  image,
+  servings,
+  authorId,
+}: Props) {
+  const { mutate: deleteRecipe } = api.recipes.deleteRecipe.useMutation();
+  const { data: session } = useSession();
+  const toast = useToast();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const isUserRecipe = authorId === session?.user.id;
+
+  const handleDelete = () => {
+    toast({
+      title: "Recipe deleted.",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
+    deleteRecipe(id);
+    onClose();
+    window.location.reload();
+  };
   return (
     <Card w="sm">
       <CardBody>
@@ -40,7 +71,7 @@ export default function RecipeCard({ id, title, description, image,servings }: P
         </Stack>
       </CardBody>
       <Divider />
-      <CardFooter>
+      <CardFooter justifyContent={"space-between"}>
         <Button
           as={NextLink}
           href={`/recipes/${id}`}
@@ -49,6 +80,18 @@ export default function RecipeCard({ id, title, description, image,servings }: P
         >
           View Recipe
         </Button>
+        <IconButton
+          aria-label="Delete Recipe"
+          colorScheme={"red"}
+          icon={<DeleteIcon />}
+          onClick={onOpen}
+          visibility={isUserRecipe ? "visible" : "hidden"}
+        />
+        <DeleteRecipeModal
+          isOpen={isOpen}
+          onClose={onClose}
+          handleDelete={handleDelete}
+        />
       </CardFooter>
     </Card>
   );

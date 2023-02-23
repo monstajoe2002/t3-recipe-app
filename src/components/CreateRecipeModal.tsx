@@ -62,6 +62,7 @@ export default function CreateRecipeModal({ isOpen, onClose }: Props) {
       authorId,
     });
     onClose();
+    window.location.reload();
   };
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered>

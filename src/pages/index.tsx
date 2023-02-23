@@ -44,7 +44,7 @@ const Home: NextPage = () => {
         {recipes
           ?.useQuery()
           .data?.filter((recipe) => isUserRecipe(recipe))
-          .map(({ id, title, description, servings }) => (
+          .map(({ id, title, description, servings, authorId }) => (
             <RecipeCard
               key={id}
               title={title}
@@ -54,23 +54,11 @@ const Home: NextPage = () => {
               description={description}
               id={id}
               servings={servings}
+              authorId={authorId}
             />
           ))}
       </Grid>
-      <Flex>
-        <Text
-          mx={"auto"}
-          fontSize={"4xl"}
-          textAlign={"center"}
-          fontWeight={"bold"}
-          color={"gray"}
-          visibility={!recipes ? "visible" : "hidden"}
-        >
-          {!session
-            ? "You must be logged into view your recipes."
-            : "You have no recipes yet. Click the button above to create one."}
-        </Text>
-      </Flex>
+      
       {/* <Button mx={"auto"} my={"8"} onClick={onOpen}>New Recipe</Button> */}
       <CreateRecipeModal isOpen={isOpen} onClose={onClose} />
       <Divider mt={"8"} />
@@ -87,7 +75,7 @@ const Home: NextPage = () => {
         {recipes
           .useQuery()
           .data?.filter((recipe) => !isUserRecipe(recipe))
-          .map(({ id, title, description, servings }) => (
+          .map(({ id, title, description, servings, authorId }) => (
             <RecipeCard
               key={id}
               title={title}
@@ -97,6 +85,7 @@ const Home: NextPage = () => {
               description={description}
               id={id}
               servings={servings}
+              authorId={authorId}
             />
           ))}
       </Grid>

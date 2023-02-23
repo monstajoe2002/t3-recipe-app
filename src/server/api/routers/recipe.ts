@@ -50,5 +50,12 @@ export const recipeRouter = createTRPCRouter({
           },
         },
       });
-    })
+    }),
+  deleteRecipe: publicProcedure.input(z.string()).mutation(({ ctx, input }) => {
+    return ctx.prisma.recipe.delete({
+      where: {
+        id: input,
+      },
+    });
+  }),
 });
