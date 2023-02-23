@@ -30,6 +30,7 @@ export const recipeRouter = createTRPCRouter({
         servings: z.number(),
         ingredients: z.array(z.string()),
         instructions: z.array(z.string()),
+        tags: z.array(z.string()),
         authorId: z.string(),
       })
     )
@@ -41,6 +42,7 @@ export const recipeRouter = createTRPCRouter({
           servings: input.servings,
           ingredients: input.ingredients,
           instructions: input.instructions,
+          tags: input.tags,
           author: {
             connect: {
               id: input.authorId,
@@ -48,5 +50,5 @@ export const recipeRouter = createTRPCRouter({
           },
         },
       });
-    }),
+    })
 });

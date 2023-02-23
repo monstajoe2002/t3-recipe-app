@@ -1,8 +1,6 @@
 import {
   Button,
-  Flex,
   FormControl,
-  FormErrorMessage,
   FormLabel,
   Input,
   Modal,
@@ -19,7 +17,9 @@ import {
   NumberInputStepper,
   Stack,
 } from "@chakra-ui/react";
-import React from "react";
+import { useSession } from "next-auth/react";
+import React, { useState } from "react";
+import { api } from "../utils/api";
 
 type Props = {
   isOpen: boolean;
@@ -27,8 +27,49 @@ type Props = {
 };
 
 export default function CreateRecipeModal({ isOpen, onClose }: Props) {
-  const [ingredients, setIngredients] = React.useState<string[]>([]);
-  const [instructions, setInstructions] = React.useState<string[]>([]);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [servings, setServings] = useState(0);
+  const [ingredients, setIngredients] = useState<string[]>([]);
+  const [instructions, setInstructions] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>([]);
+  const [error, setError] = useState(false);
+  const { data: session } = useSession();
+  const authorId = session?.user.id as string;
+
+  const handleCreateRecipe = (e: React.SyntheticEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (
+      !title ||
+      !description ||
+      !servings ||
+      !ingredients ||
+      !instructions ||
+      !tags
+    ) {
+      setError(true);
+      return;
+    }
+    setError(false);
+    api.recipes.createRecipe.useMutation().mutate({
+      title,
+      description,
+      servings,
+      ingredients,
+      instructions,
+      tags,
+      authorId,
+    });
+    console.dir({
+      title,
+      description,
+      servings,
+      ingredients,
+      instructions,
+      tags,
+      authorId,
+    });
+  };
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
@@ -36,15 +77,23 @@ export default function CreateRecipeModal({ isOpen, onClose }: Props) {
         <ModalHeader>Create New Recipe</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <FormControl isRequired>
+          <FormControl isRequired isInvalid={error}>
             <Stack mb={4}>
               <FormLabel>Title</FormLabel>
-              <Input placeholder="Title" />
+              <Input
+                placeholder="Title"
+                onChange={(e) => setTitle(e.target.value)}
+              />
               <FormLabel>Description</FormLabel>
-              <Input placeholder="Description" />
+              <Input
+                placeholder="Description"
+                onChange={(e) => setDescription(e.target.value)}
+              />
               <FormLabel>Servings</FormLabel>
               <NumberInput>
-                <NumberInputField />
+                <NumberInputField
+                  onChange={(e) => setServings(parseInt(e.target.value))}
+                />
                 <NumberInputStepper>
                   <NumberIncrementStepper />
                   <NumberDecrementStepper />
@@ -62,15 +111,16 @@ export default function CreateRecipeModal({ isOpen, onClose }: Props) {
                   setInstructions([...e.target.value.split(";")])
                 }
               />
+              <FormLabel>Tags (seperated by semicolons)</FormLabel>
+              <Input
+                placeholder="Tags"
+                onChange={(e) => setTags([...e.target.value.split(";")])}
+              />
             </Stack>
           </FormControl>
         </ModalBody>
         <ModalFooter>
-          <Button
-            colorScheme="blue"
-            mr={3}
-            onClick={() => console.dir({ ingredients, instructions })}
-          >
+          <Button colorScheme="blue" mr={3} onClick={handleCreateRecipe}>
             Create
           </Button>
           <Button variant="ghost" onClick={onClose}>
