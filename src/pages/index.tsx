@@ -5,7 +5,6 @@ import {
   Grid,
   Heading,
   IconButton,
-  Text,
   useDisclosure,
 } from "@chakra-ui/react";
 import type { Recipe } from "@prisma/client";
