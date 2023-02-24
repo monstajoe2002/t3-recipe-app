@@ -29,14 +29,18 @@ export default function Header() {
                 <Text my={"auto"} fontWeight={"bold"}>
                   {session.user.name}
                 </Text>
+                {/* eslint-disable-next-line @typescript-eslint/no-misused-promises*/}
                 <Button colorScheme={"orange"} onClick={() => signOut()}>
                   Sign Out
                 </Button>
               </>
             ) : (
-              <Button colorScheme={"orange"} onClick={() => signIn()}>
-                Log In
-              </Button>
+              <>
+                {/* eslint-disable-next-line @typescript-eslint/no-misused-promises*/}
+                <Button colorScheme={"orange"} onClick={() => signIn()}>
+                  Log In
+                </Button>
+              </>
             )}
             <IconButton
               aria-label="Toggle Theme"
